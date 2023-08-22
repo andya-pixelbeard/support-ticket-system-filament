@@ -15,6 +15,11 @@ class CreateTicket extends CreateRecord
         return $this->getResource()::getUrl('index');
     }
 
+    protected function getCreatedNotificationTitle(): ?string
+    {
+        return "Ticket created";
+    }
+
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['assigned_by'] = auth()->id();
