@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Ticket extends Model
 {
@@ -33,22 +35,34 @@ class Ticket extends Model
         'assigned_to',
     ];
 
-    public function assignedBy()
+    /**
+     * @return BelongsTo
+     */
+    public function assignedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_by');
     }
 
-    public function assignedTo()
+    /**
+     * @return BelongsTo
+     */
+    public function assignedTo(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_to');
     }
 
-    public function categories()
+    /**
+     * @return BelongsToMany
+     */
+    public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
     }
 
-    public function labels()
+    /**
+     * @return BelongsToMany
+     */
+    public function labels(): BelongsToMany
     {
         return $this->belongsToMany(Label::class);
     }
