@@ -21,5 +21,4 @@ class CreateTicket extends CreateRecord
 
         return $data;
     }
-
 }

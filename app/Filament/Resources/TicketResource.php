@@ -13,6 +13,9 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -46,13 +49,19 @@ class TicketResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('title')->description(fn (Ticket $record): string => $record-description),
+                BadgeColumn::make('status'), //->(self::$model::STATUS),
+                BadgeColumn::make('priority'), //->enum(self::$model::STATUS),
+                TextColumn::make('assignedTo.name'),
+                TextColumn::make('assignedBy.name'),
+                TextInputColumn::make('comment'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
