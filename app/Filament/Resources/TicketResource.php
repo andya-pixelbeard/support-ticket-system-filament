@@ -49,7 +49,7 @@ class TicketResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')->description(fn (Ticket $record): string => $record-description),
+                TextColumn::make('title')->description(fn (Ticket $record): string => $record->description),
                 BadgeColumn::make('status'), //->(self::$model::STATUS),
                 BadgeColumn::make('priority'), //->enum(self::$model::STATUS),
                 TextColumn::make('assignedTo.name'),
@@ -76,7 +76,7 @@ class TicketResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\CategoriesRelationManager::class,
         ];
     }
     
