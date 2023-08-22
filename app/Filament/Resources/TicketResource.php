@@ -56,8 +56,18 @@ class TicketResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')->description(fn (Ticket $record): string => $record?->description??  ''),
-                BadgeColumn::make('status'), //->(self::$model::STATUS),
-                BadgeColumn::make('priority'), //->enum(self::$model::STATUS),
+                BadgeColumn::make('status')
+                    ->colors([
+                        'warning' => self::$model::STATUS['Archived'],
+                        'success' => self::$model::STATUS['Closed'],
+                        'danger' => self::$model::STATUS['Open'],
+                    ]),
+                BadgeColumn::make('priority')
+                    ->colors([
+                        'warning' => self::$model::PRIORITY['Medium'],
+                        'success' => self::$model::PRIORITY['Low'],
+                        'danger' => self::$model::PRIORITY['High'],
+                    ]),
                 TextColumn::make('assignedTo.name'),
                 TextColumn::make('assignedBy.name'),
                 TextInputColumn::make('comment'),
