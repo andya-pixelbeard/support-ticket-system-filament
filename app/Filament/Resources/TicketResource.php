@@ -44,7 +44,8 @@ class TicketResource extends Resource
                     ->in(self::$model::PRIORITY),
                 Checkbox::make('is_resolved'),
                 Textarea::make('description'),
-                Textarea::make('comment'),
+                Textarea::make('comment')
+                    ->disabled(!auth()->user()->hasPermissionTo('ticket_edit')),
                 Select::make('assigned_to')
                     ->relationship('assignedTo', 'name'),
                 
