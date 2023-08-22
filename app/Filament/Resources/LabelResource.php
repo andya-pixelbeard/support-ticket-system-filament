@@ -40,6 +40,7 @@ class LabelResource extends Resource
             ->columns([
                 TextColumn::make('name'),
                 CheckboxColumn::make('is_active')
+                    ->disabled(!auth()->user()->hasPermission('label_edit'))
             ])
             ->filters([
                 //

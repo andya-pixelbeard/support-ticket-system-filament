@@ -13,16 +13,16 @@ class RolesTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $roles = [
             [
                 'id' => 1,
-                'title' => 'Admin',
+                'title' => Role::ROLES['Admin'],
             ],
             [
                 'id' => 2,
-                'title' => 'Agent',
+                'title' => Role::ROLES['Agent'],
             ],
         ];
 
