@@ -31,11 +31,17 @@ class TicketResource extends Resource
         return $form
             ->columns(1)
             ->schema([
-                TextInput::make('title'),
+                TextInput::make('title')
+                    ->required(),
                 Select::make('status')
-                    ->options(self::$model::STATUS),
+                    ->options(self::$model::STATUS)
+                    ->required()
+                    ->in(self::$model::STATUS),
+                
                 Select::make('priority')
-                    ->options(self::$model::PRIORITY),
+                    ->options(self::$model::PRIORITY)
+                    ->required()
+                    ->in(self::$model::PRIORITY),
                 Checkbox::make('is_resolved'),
                 Textarea::make('description'),
                 Textarea::make('comment'),
@@ -49,7 +55,7 @@ class TicketResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')->description(fn (Ticket $record): string => $record->description),
+                TextColumn::make('title')->description(fn (Ticket $record): string => $record?->description??  ''),
                 BadgeColumn::make('status'), //->(self::$model::STATUS),
                 BadgeColumn::make('priority'), //->enum(self::$model::STATUS),
                 TextColumn::make('assignedTo.name'),
