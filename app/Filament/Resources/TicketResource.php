@@ -45,7 +45,7 @@ class TicketResource extends Resource
                 Checkbox::make('is_resolved'),
                 Textarea::make('description'),
                 Textarea::make('comment')
-                    ->disabled(!auth()->user()->hasPermissionTo('ticket_edit')),
+                    ->disabled(!auth()->user()->hasPermission('ticket_edit')),
                 Select::make('assigned_to')
                     ->relationship('assignedTo', 'name'),
                 
@@ -77,6 +77,7 @@ class TicketResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -103,6 +104,7 @@ class TicketResource extends Resource
         return [
             'index' => Pages\ListTickets::route('/'),
             'create' => Pages\CreateTicket::route('/create'),
+            'view' => Pages\ViewTicket::route('/{record}'),
             'edit' => Pages\EditTicket::route('/{record}/edit'),
         ];
     }    
