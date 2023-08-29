@@ -30,7 +30,7 @@ class TicketPolicy
      */
     public function view(User $user, Ticket $ticket)
     {
-        return $user->hasPermission('ticket_show') && $ticket->assigned_to == $user->id;
+        return $user->hasPermission('ticket_show'); // && $ticket->assigned_to == $user->id;
     }
 
     /**
